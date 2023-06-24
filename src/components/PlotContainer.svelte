@@ -1,7 +1,10 @@
 <script>
   import * as Plot from "@observablehq/plot";
   import NumberInput from "./NumberInput.svelte";
-  import { onMount, afterUpdate } from "svelte";
+  import clsx from "clsx";
+  import { afterUpdate } from "svelte";
+  import { sidebarWidth } from "../stores/interface";
+  import ResizeHandler from "./ResizeHandler.svelte";
 
   import data from "./crimea.json";
   import Group from "./Group.svelte";
@@ -42,7 +45,13 @@
   <div class="flex-1 bg-neutral-100 p-10 grid place-items-center">
     <div bind:this={container} />
   </div>
-  <div class="bg-neutral-200 divide-y divide-neutral-300 w-1/5 max-w-sm">
+  <div
+    class={clsx("bg-neutral-200 divide-y divide-neutral-300 relative", {
+      "w-1/5 max-w-sm": $sidebarWidth === null,
+    })}
+    style:width={$sidebarWidth ? `${$sidebarWidth}px` : null}
+  >
+    <ResizeHandler bind:value={$sidebarWidth} />
     <Group title="Dimensions">
       <NumberInput bind:value={marginLeft} />
     </Group>
