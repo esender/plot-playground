@@ -1,8 +1,10 @@
 <script>
   import * as Plot from "@observablehq/plot";
+  import NumberInput from "./NumberInput.svelte";
   import { onMount, afterUpdate } from "svelte";
 
   import data from "./crimea.json";
+  import Group from "./Group.svelte";
 
   let container;
   let marginLeft = 40;
@@ -36,8 +38,22 @@
   });
 </script>
 
-<div bind:this={container} class="ml-10 mt-10" />
-<div>
-  <input type="range" min="0" max="100" bind:value={marginLeft} />
-  <input type="number" bind:value={ticks} />
+<div class="flex w-full h-full min-h-screen">
+  <div class="flex-1 bg-neutral-100 p-10 grid place-items-center">
+    <div bind:this={container} />
+  </div>
+  <div class="bg-neutral-200 divide-y divide-neutral-300 w-1/5 max-w-sm">
+    <Group title="Dimensions">
+      <NumberInput bind:value={marginLeft} />
+    </Group>
+    <Group title="Margins">
+      <NumberInput bind:value={marginLeft} />
+    </Group>
+    <Group title="Margins">
+      <NumberInput bind:value={marginLeft} />
+    </Group>
+    <Group title="Ticks">
+      <NumberInput bind:value={ticks} />
+    </Group>
+  </div>
 </div>
