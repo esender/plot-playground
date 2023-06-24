@@ -12,12 +12,16 @@
   let container;
   let marginLeft = 40;
   let ticks = 10;
+  let width = 640;
+  let height = 360;
 
   let plot;
 
   afterUpdate(async () => {
     plot = Plot.plot({
       marginLeft,
+      width,
+      height,
       x: {
         interval: "month",
         tickFormat: (d) => d.toLocaleString("en", { month: "narrow" }),
@@ -54,6 +58,10 @@
     <ResizeHandler bind:value={$sidebarWidth} />
     <Group title="Dimensions">
       <NumberInput bind:value={marginLeft} />
+      <div class="grid grid-cols-2">
+        <NumberInput bind:value={width} icon="tabler:letter-w" />
+        <NumberInput bind:value={height} icon="tabler:letter-h" />
+      </div>
     </Group>
     <Group title="Margins">
       <NumberInput bind:value={marginLeft} />
