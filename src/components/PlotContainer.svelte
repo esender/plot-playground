@@ -4,30 +4,26 @@
   import clsx from "clsx";
   import { afterUpdate } from "svelte";
   import { sidebarWidth } from "../stores/interface";
+  import { plotConfig } from "../stores/plot_config";
   import ResizeHandler from "./ResizeHandler.svelte";
 
   import data from "./crimea.json";
   import Group from "./Group.svelte";
+  import Icon from "@iconify/svelte";
 
   let container;
-  let marginLeft = 40;
-  let ticks = 10;
-  let width = 640;
-  let height = 360;
 
   let plot;
 
   afterUpdate(async () => {
     plot = Plot.plot({
-      marginLeft,
-      width,
-      height,
+      ...$plotConfig,
       x: {
         interval: "month",
         tickFormat: (d) => d.toLocaleString("en", { month: "narrow" }),
         label: null,
       },
-      y: { grid: true, ticks },
+      y: { grid: true },
       marks: [
         Plot.barY(
           data.map((d) => ({ ...d, date: new Date(d.date) })),
@@ -57,20 +53,17 @@
   >
     <ResizeHandler bind:value={$sidebarWidth} />
     <Group title="Dimensions">
-      <NumberInput bind:value={marginLeft} />
-      <div class="grid grid-cols-2">
-        <NumberInput bind:value={width} icon="tabler:letter-w" />
-        <NumberInput bind:value={height} icon="tabler:letter-h" />
+      <div class="flex items-center gap-1">
+        <NumberInput bind:value={$plotConfig.width} icon="tabler:letter-w" />
+        <div class="flex-none">
+          <Icon icon="tabler:x" />
+        </div>
+        <NumberInput bind:value={$plotConfig.height} icon="tabler:letter-h" />
       </div>
-    </Group>
-    <Group title="Margins">
-      <NumberInput bind:value={marginLeft} />
-    </Group>
-    <Group title="Margins">
-      <NumberInput bind:value={marginLeft} />
+      <NumberInput bind:value={$plotConfig.margin} />
     </Group>
     <Group title="Ticks">
-      <NumberInput bind:value={ticks} />
+      <NumberInput bind:value={$plotConfig.y} />
     </Group>
   </div>
 </div>

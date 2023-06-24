@@ -25,14 +25,21 @@
 <svelte:document on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} />
 
 <div
-  class="flex w-full items-center gap-2 border border-transparent hover:border-white focus-within:outline-blue-400 focus-within:outline-1 focus-within:outline-offset-0 p-1"
+  class="flex-auto flex items-center gap-2 border border-transparent hover:border-white focus-within:outline-blue-400 focus-within:outline-1 focus-within:outline-offset-0 p-1 focus-within:outline"
 >
-  <div
-    class="w-4 h-4 cursor-ew-resize"
+  <!-- svelte-ignore a11y-role-has-required-aria-props -->
+  <!-- svelte-ignore a11y-interactive-supports-focus -->
+  <span
+    class="w-4 h-4 cursor-ew-resize flex-none"
     on:mousedown={handleMouseDown}
     role="option"
   >
     <Icon {icon} />
-  </div>
-  <input type="number" class="flex-1 bg-transparent outline-0" bind:value />
+  </span>
+  <input
+    type="number"
+    class="grow-0 shrink bg-transparent outline-0 w-full"
+    on:focus={(e) => e.target.select()}
+    bind:value
+  />
 </div>
