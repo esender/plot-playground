@@ -13,6 +13,7 @@
   import { tooltip } from "./tooltip/action";
 
   import plotOptions from "../schemas/plot_options.ts";
+  import Option from "./Option.svelte";
 
   let container;
 
@@ -55,19 +56,24 @@
     style:width={$sidebarWidth ? `${$sidebarWidth}px` : null}
   >
     <ResizeHandler bind:value={$sidebarWidth} />
-    <Group title="Dimensions">
-      <div class="flex items-center gap-1">
-        <NumberInput bind:value={$plotConfig.width} icon="tabler:letter-w" />
-        <div
-          class="flex-none"
-          title={plotOptions.properties.width.description}
-          use:tooltip
-        >
-          <Icon icon="tabler:x" />
-        </div>
-        <NumberInput bind:value={$plotConfig.height} icon="tabler:letter-h" />
-      </div>
-      <NumberInput bind:value={$plotConfig.margin} />
+    <Group title="Canvas dimensions">
+      <Option title="Width" let:id>
+        <NumberInput
+          bind:value={$plotConfig.width}
+          icon="tabler:letter-w"
+          {id}
+        />
+      </Option>
+      <Option title="Height" let:id>
+        <NumberInput
+          bind:value={$plotConfig.height}
+          icon="tabler:letter-h"
+          {id}
+        />
+      </Option>
+      <Option title="Margin" let:id>
+        <NumberInput bind:value={$plotConfig.margin} {id} />
+      </Option>
     </Group>
     <Group title="Ticks">
       <NumberInput bind:value={$plotConfig.y} />

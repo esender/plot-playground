@@ -10,7 +10,7 @@
 
 <div>
   <button
-    class="px-2 flex items-center justify-between w-full"
+    class="px-4 py-1 font-semibold flex items-center justify-between w-full"
     on:click={toggle}
   >
     {title}
@@ -19,6 +19,6 @@
     </div>
   </button>
   {#if show}
-    <div class="px-2"><slot /></div>
+    <div class="px-4"><slot /></div>
   {/if}
 </div>
