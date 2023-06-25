@@ -10,6 +10,7 @@
   import data from "./crimea.json";
   import Group from "./Group.svelte";
   import Icon from "@iconify/svelte";
+  import { tooltip } from "./tooltip/action";
 
   let container;
 
@@ -55,7 +56,7 @@
     <Group title="Dimensions">
       <div class="flex items-center gap-1">
         <NumberInput bind:value={$plotConfig.width} icon="tabler:letter-w" />
-        <div class="flex-none">
+        <div class="flex-none" title="This is *custom* title" use:tooltip>
           <Icon icon="tabler:x" />
         </div>
         <NumberInput bind:value={$plotConfig.height} icon="tabler:letter-h" />

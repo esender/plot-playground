@@ -19,6 +19,7 @@ const schema = {
 const DEFAULTS = {
   width: 640,
   height: 400,
+  margin: undefined,
 };
 
 export const plotConfig = writable(DEFAULTS);
