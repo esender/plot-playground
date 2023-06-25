@@ -12,6 +12,8 @@
   import Icon from "@iconify/svelte";
   import { tooltip } from "./tooltip/action";
 
+  import plotOptions from "../schemas/plot_options.ts";
+
   let container;
 
   let plot;
@@ -56,7 +58,11 @@
     <Group title="Dimensions">
       <div class="flex items-center gap-1">
         <NumberInput bind:value={$plotConfig.width} icon="tabler:letter-w" />
-        <div class="flex-none" title="This is *custom* title" use:tooltip>
+        <div
+          class="flex-none"
+          title={plotOptions.properties.width.description}
+          use:tooltip
+        >
           <Icon icon="tabler:x" />
         </div>
         <NumberInput bind:value={$plotConfig.height} icon="tabler:letter-h" />
@@ -66,5 +72,12 @@
     <Group title="Ticks">
       <NumberInput bind:value={$plotConfig.y} />
     </Group>
+    <div
+      class="flex-none"
+      title={"plotOptions.properties.width.description"}
+      use:tooltip
+    >
+      <Icon icon="tabler:x" />
+    </div>
   </div>
 </div>

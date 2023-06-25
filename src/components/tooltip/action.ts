@@ -1,4 +1,11 @@
-import { computePosition, autoUpdate } from "@floating-ui/dom";
+import {
+  computePosition,
+  autoUpdate,
+  shift,
+  offset,
+  flip,
+  arrow,
+} from "@floating-ui/dom";
 import Tooltip from "./Tooltip.svelte";
 import { marked } from "marked";
 
@@ -11,8 +18,25 @@ export const tooltip = (node: HTMLElement) => {
   function updatePosition() {
     if (!tooltip) return;
 
-    computePosition(node, wrapper).then(({ x, y }) => {
+    console.log(tooltip.arrow);
+
+    computePosition(node, wrapper, {
+      placement: "top",
+      middleware: [
+        shift({ padding: 12 }),
+        offset(12),
+        flip(),
+        tooltip.arrow && arrow({ element: tooltip.arrow }),
+      ],
+    }).then(({ x, y, middlewareData }) => {
       wrapper.style.transform = `translate(${x}px, ${y}px)`;
+      console.log("middlewareData", middlewareData);
+      tooltip?.$set({
+        arrowPosition: {
+          x: middlewareData.arrow?.x ?? null,
+          y: middlewareData.arrow?.y ?? null,
+        },
+      });
     });
   }
 
